@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\{
+    UserController,
+    KategoriController,
+    ProdukController
+};
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,21 +18,58 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/dashboard-general-dashboard');
 
 // Dashboard
-Route::get('/dashboard-general-dashboard', function () {
-    return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
+Route::get('/dashboard/index', function () {
+    return view('pages.dashboard-general-dashboard');
+})->middleware('auth')->name('dashboard.index');
+
+Route::redirect('/register/redirect', '/dashboard/index');
+
+Route::get('/loginadmin', function () {
+    return view('auth.login');
+})->middleware('guest');
+
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route::resource('user', UserController::class);
+
+//ROUTE USER
+Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/admins')->group(function () {
+    Route::get('index', [UserController::class, 'index'])->name('dashboard.admins.index');
+    Route::get('create', [UserController::class, 'create'])->name('dashboard.admins.create');
+    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('dashboard.admins.edit');
+    Route::post('store', [UserController::class, 'store'])->name('dashboard.admin.store');
+    Route::put('/{user}', [UserController::class, 'update'])->name('dashboard.admins.update');
+    Route::delete('{user}', [UserController::class, 'destroy'])->name('dashboard.admins.destory');
 });
-Route::get('/dashboard-ecommerce-dashboard', function () {
-    return view('pages.dashboard-ecommerce-dashboard', ['type_menu' => 'dashboard']);
+
+//ROUTE KATEGORI
+Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/kategoris')->group(function () {
+    Route::get('index', [KategoriController::class, 'index'])->name('dashboard.kategoris.index');
+    Route::get('create', [KategoriController::class, 'create'])->name('dashboard.kategoris.create');
+    Route::post('store', [KategoriController::class, 'store'])->name('dashboard.kategoris.store');
+    Route::get('{kategori}/edit', [KategoriController::class, 'edit'])->name('dashboard.kategoris.edit');
+    Route::put('/{kategori}', [KategoriController::class, 'update'])->name('dashboard.kategoris.update');
+    Route::delete('{kategori}', [KategoriController::class, 'destroy'])->name('dashboard.kategoris.destory');
 });
 
 
-// Layout
-Route::get('/layout-default-layout', function () {
-    return view('pages.layout-default-layout', ['type_menu' => 'layout']);
+//ROUTE PRODUK
+Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/produks')->group(function () {
+    Route::get('index', [ProdukController::class, 'index'])->name('dashboard.produks.index');
+    Route::get('create', [ProdukController::class, 'create'])->name('dashboard.produks.create');
+    Route::post('store', [ProdukController::class, 'store'])->name('dashboard.produks.store');
+    Route::get('{produk}/edit', [ProdukController::class, 'edit'])->name('dashboard.produks.edit');
+    Route::put('/{produk}', [ProdukController::class, 'update'])->name('dashboard.produks.update');
+    Route::delete('{produk}', [ProdukController::class, 'destroy'])->name('dashboard.produks.destory');
 });
+
+
+
+
+
 
 // Blank Page
 Route::get('/blank-page', function () {
