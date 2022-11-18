@@ -107,14 +107,10 @@
                                         <p class="section-lead">The payment method that we provide is to make it easier for
                                             you to pay invoices.</p>
                                         <div class="images">
-                                            <img src="{{ asset('img/payment/visa.png') }}"
-                                                alt="visa">
-                                            <img src="{{ asset('img/payment/jcb.png') }}"
-                                                alt="jcb">
-                                            <img src="{{ asset('img/payment/mastercard.png') }}"
-                                                alt="mastercard">
-                                            <img src="{{ asset('img/payment/paypal.png') }}"
-                                                alt="paypal">
+                                            <img src="{{ asset('img/payment/visa.png') }}" alt="visa">
+                                            <img src="{{ asset('img/payment/jcb.png') }}" alt="jcb">
+                                            <img src="{{ asset('img/payment/mastercard.png') }}" alt="mastercard">
+                                            <img src="{{ asset('img/payment/paypal.png') }}" alt="paypal">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 text-right">

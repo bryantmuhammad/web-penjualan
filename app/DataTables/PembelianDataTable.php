@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Produk;
+use App\Models\Pembelian;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProdukDataTable extends DataTable
+class PembelianDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,27 +23,30 @@ class ProdukDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'admin.produk.datatable-action')
-            ->addColumn('gambar', 'admin.produk.datatable-image')
-            ->addColumn('harga', function ($produk) {
-                return rupiah($produk->harga);
+            // ->addColumn('action', 'pembelian.action')
+            ->addColumn('supplier', function ($query) {
+                return $query->supplier->nama_supplier;
             })
-            ->addColumn('nama_kategori', function ($produk) {
-                return $produk->kategori->nama_kategori;
+            ->addColumn('total_pembelian', function ($query) {
+                return rupiah($query->total_pembelian);
             })
-            ->rawColumns(['action', 'gambar'])
+            ->addColumn('tanggal_pembelian', function ($query) {
+                return date("j F Y", strtotime($query->tanggal_pembelian));
+            })
+            ->addColumn('detail_pembelian', 'admin.pembelian.datatable-action')
+            ->rawColumns(['detail_pembelian'])
             ->setRowId('id');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Produk $model
+     * @param \App\Models\Pembelian $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Produk $model): QueryBuilder
+    public function query(Pembelian $model): QueryBuilder
     {
-        return $model->newQuery()->with('kategori');
+        return $model->newQuery()->with('supplier');
     }
 
     /**
@@ -54,7 +57,7 @@ class ProdukDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('produk-table')
+            ->setTableId('pembelian-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -78,13 +81,11 @@ class ProdukDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('nama_produk')->title('Nama Produk'),
-            Column::make('nama_kategori')->title('Nama Kategori'),
-            Column::make('stok')->title('Stok'),
-            Column::make('berat')->title('Berat (gram)'),
-            Column::make('harga')->title('Harga'),
-            Column::make('gambar')->title('Foto Produk'),
-            Column::make('action')->title('Aksi')->orderable(false)->searchable(false),
+            Column::make('supplier')->title('Supplier'),
+            Column::make('tanggal_pembelian')->title('Tanggal Pembelian'),
+            Column::make('total_pembelian')->title('Total Harga'),
+            Column::make('detail_pembelian')->title('Detail Pembelian')->orderable(false)->searchable(false),
+
         ];
     }
 
@@ -95,6 +96,6 @@ class ProdukDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Produk_' . date('YmdHis');
+        return 'Pembelian_' . date('YmdHis');
     }
 }

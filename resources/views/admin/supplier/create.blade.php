@@ -9,7 +9,7 @@
                 <h1>{{ $title }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard.index') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('dashboard.kategoris.index') }}">Kategori</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('dashboard.suppliers.index') }}">Supplier</a></div>
                     <div class="breadcrumb-item">{{ $title }}</div>
                 </div>
             </div>
@@ -17,9 +17,9 @@
             <div class="section-body">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('dashboard.kategoris.store') }}" method="POST">
+                        <form action="{{ route('dashboard.suppliers.store') }}" method="POST">
                             @csrf
-                            @include('admin.kategori.form')
+                            @include('admin.supplier.form')
                         </form>
                     </div>
                 </div>

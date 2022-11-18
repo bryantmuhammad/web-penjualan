@@ -20,7 +20,9 @@
                             <div class="card-body">
                                 <a href="{{ route('dashboard.produks.create') }}" class="btn btn-primary mb-3">Tambah
                                     Produk</a>
-                                <x-datatable :dataTable="$dataTable"></x-datatable>
+                                <div class="table-responsive">
+                                    <x-datatable :dataTable="$dataTable"></x-datatable>
+                                </div>
                             </div>
                         </div>
                     </div>

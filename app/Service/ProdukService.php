@@ -14,4 +14,12 @@ class ProdukService
 
         return $produk;
     }
+
+    public function updateStok($list_produk): void
+    {
+        foreach ($list_produk as $produk) {
+            Produk::where('id_produk', $produk['id_produk'])
+                ->increment('stok', $produk['jumlah']);
+        }
+    }
 }

@@ -9,7 +9,7 @@
                 <h1>{{ $title }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard.index') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Kategori</div>
+                    <div class="breadcrumb-item">{{ $title }}</div>
                 </div>
             </div>
 
@@ -18,8 +18,8 @@
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ route('dashboard.kategoris.create') }}" class="btn btn-primary mb-3">Tambah
-                                    Kategori</a>
+                                <a href="{{ route('dashboard.pembelians.create') }}" class="btn btn-primary mb-3">Tambah
+                                    Pembelian</a>
                                 <div class="table-responsive">
                                     <x-datatable :dataTable="$dataTable"></x-datatable>
                                 </div>

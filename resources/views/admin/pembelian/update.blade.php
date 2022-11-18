@@ -10,15 +10,16 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard.index') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('dashboard.kategoris.index') }}">Kategori</a></div>
-                    <div class="breadcrumb-item">{{ $title }}</div>
+                    <div class="breadcrumb-item">Edit Kategori</div>
                 </div>
             </div>
 
             <div class="section-body">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('dashboard.kategoris.store') }}" method="POST">
+                        <form action="{{ route('dashboard.kategoris.update', $kategori) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             @include('admin.kategori.form')
                         </form>
                     </div>

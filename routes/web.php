@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     UserController,
     KategoriController,
-    ProdukController
+    ProdukController,
+    SupplierController,
+    PembelianController
 };
 use App\Http\Controllers\AuthController;
 /*
@@ -64,6 +66,28 @@ Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/produks')->grou
     Route::get('{produk}/edit', [ProdukController::class, 'edit'])->name('dashboard.produks.edit');
     Route::put('/{produk}', [ProdukController::class, 'update'])->name('dashboard.produks.update');
     Route::delete('{produk}', [ProdukController::class, 'destroy'])->name('dashboard.produks.destory');
+});
+
+//ROUTE SUPPLIER
+Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/suppliers')->group(function () {
+    Route::get('index', [SupplierController::class, 'index'])->name('dashboard.suppliers.index');
+    Route::get('create', [SupplierController::class, 'create'])->name('dashboard.suppliers.create');
+    Route::post('store', [SupplierController::class, 'store'])->name('dashboard.suppliers.store');
+    Route::get('{supplier}/edit', [SupplierController::class, 'edit'])->name('dashboard.suppliers.edit');
+    Route::put('/{supplier}', [SupplierController::class, 'update'])->name('dashboard.suppliers.update');
+    Route::delete('{supplier}', [SupplierController::class, 'destroy'])->name('dashboard.suppliers.destory');
+});
+
+
+//ROUTE PEMBELIAN
+Route::middleware(['auth', 'can:transaksi_admin'])->prefix('dashboard/pembelians')->group(function () {
+    Route::get('index', [PembelianController::class, 'index'])->name('dashboard.pembelians.index');
+    Route::get('{pembelian}', [PembelianController::class, 'show'])->name('dashboard.pembelians.show');
+    Route::get('create', [PembelianController::class, 'create'])->name('dashboard.pembelians.create');
+    Route::post('store', [PembelianController::class, 'store'])->name('dashboard.pembelians.store');
+    Route::get('{pembelian}/edit', [PembelianController::class, 'edit'])->name('dashboard.pembelians.edit');
+    Route::put('/{pembelian}', [PembelianController::class, 'update'])->name('dashboard.pembelians.update');
+    Route::delete('{pembelian}', [PembelianController::class, 'destroy'])->name('dashboard.pembelians.destory');
 });
 
 

@@ -16,7 +16,7 @@
             @can('crud_admin')
                 <li class="menu-header">Data Master</li>
                 <li
-                    class="nav-item dropdown {{ in_array(request()->segment(2), ['admins', 'kategoris', 'produks']) ? 'active' : '' }}">
+                    class="nav-item dropdown {{ in_array(request()->segment(2), ['admins', 'kategoris', 'produks', 'suppliers']) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                         <span>Data Master</span></a>
                     <ul class="dropdown-menu">
@@ -29,80 +29,29 @@
                         <li class="{{ Request::is('dashboard/produks*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('dashboard.produks.index') }}">Produk</a>
                         </li>
+                        <li class="{{ Request::is('dashboard/suppliers*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('dashboard.suppliers.index') }}">Supplier</a>
+                        </li>
                     </ul>
                 </li>
             @endcan
 
-            <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('blank-page') }}"><i class="far fa-square"></i> <span>Blank
-                        Page</span></a>
-            </li>
-            <li class="nav-item dropdown ">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Bootstrap</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{ Request::is('bootstrap-alert') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-alert') }}">Alert</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-badge') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-badge') }}">Badge</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-breadcrumb') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-breadcrumb') }}">Breadcrumb</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-buttons') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-buttons') }}">Buttons</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-card') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-card') }}">Card</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-carousel') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-carousel') }}">Carousel</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-collapse') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-collapse') }}">Collapse</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-dropdown') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-dropdown') }}">Dropdown</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-form') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-form') }}">Form</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-list-group') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-list-group') }}">List Group</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-media-object') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-media-object') }}">Media Object</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-modal') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-modal') }}">Modal</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-nav') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-nav') }}">Nav</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-navbar') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-navbar') }}">Navbar</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-pagination') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-pagination') }}">Pagination</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-popover') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-popover') }}">Popover</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-progress') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-progress') }}">Progress</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-table') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-table') }}">Table</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-tooltip') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-tooltip') }}">Tooltip</a>
-                    </li>
-                    <li class="{{ Request::is('bootstrap-typography') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('bootstrap-typography') }}">Typography</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-header">Stisla</li>
+
+
+            <li class="menu-header">Transaksi</li>
+            @can('crud_admin')
+                <li class="nav-item dropdown {{ in_array(request()->segment(2), ['pembelians']) ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                        <span>Pembelian</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Request::is('dashboard/pembelians*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('dashboard.pembelians.index') }}">Pembelian</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+
+
             <li class="nav-item dropdown ">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i>
                     <span>Components</span></a>
