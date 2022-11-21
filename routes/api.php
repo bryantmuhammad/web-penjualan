@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\ProvinsiController;
+use App\Http\Controllers\User\OngkirController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/provinsi/getkabupaten', [ProvinsiController::class, 'get_kabupaten']);
+Route::get('/ongkir/getongkir', [OngkirController::class, 'get_ongkir']);

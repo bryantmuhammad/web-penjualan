@@ -15,7 +15,7 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
+            <form method="POST" action="{{ route('authenticate') }}" class="needs-validation" novalidate="">
                 @csrf
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -24,6 +24,7 @@
                     <div class="invalid-feedback">
                         Please fill in your email
                     </div>
+                    <input type="hidden" name="is_admin" value="1">
                 </div>
 
                 <div class="form-group">
@@ -40,13 +41,6 @@
                         please fill in your password
                     </div>
                 </div>
-
-                {{-- <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                        <label class="custom-control-label" for="remember-me">Remember Me</label>
-                    </div>
-                </div> --}}
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">

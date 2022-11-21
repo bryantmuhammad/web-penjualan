@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 use App\Service\ProdukService;
 use Carbon\Carbon;
 
-
 class PembelianService
 {
 

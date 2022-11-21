@@ -22,6 +22,7 @@ function confirmDelete(callback) {
         text: "Yakin ingin menghapus data?",
         showConfirmButton: true,
         showCancelButton: true,
+        confirmButtonText: "Ya, hapus",
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
     }).then((result) => {

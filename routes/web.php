@@ -8,7 +8,19 @@ use App\Http\Controllers\Admin\{
     SupplierController,
     PembelianController
 };
+
+use App\Http\Controllers\user\{
+    UserController as CustomerUser,
+    AlamatController,
+    ProdukController as ProdukUser,
+    KeranjangController,
+    PenjualanController,
+    OngkirController
+};
+
 use App\Http\Controllers\AuthController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,20 +34,25 @@ use App\Http\Controllers\AuthController;
 
 
 // Dashboard
+Route::get('/', function () {
+    return view('user.index');
+});
+
+
 Route::get('/dashboard/index', function () {
     return view('pages.dashboard-general-dashboard');
 })->middleware('auth')->name('dashboard.index');
 
-Route::redirect('/register/redirect', '/dashboard/index');
 
-Route::get('/loginadmin', function () {
-    return view('auth.login');
-})->middleware('guest');
-
-Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
+//ROUTE LOGIN ADMIN
+Route::get('/loginadmin', [AuthController::class, 'loginadmin'])->middleware('guest')->name('admin.login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route::resource('user', UserController::class);
+//ROUTE LOGIN USER
+Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->name('user.login');
+Route::get('/register', [AuthController::class, 'register'])->name('user.register');
+Route::post('/register', [AuthController::class, 'create'])->name('user.register.create');
 
 //ROUTE USER
 Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/admins')->group(function () {
@@ -57,7 +74,6 @@ Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/kategoris')->gr
     Route::delete('{kategori}', [KategoriController::class, 'destroy'])->name('dashboard.kategoris.destory');
 });
 
-
 //ROUTE PRODUK
 Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/produks')->group(function () {
     Route::get('index', [ProdukController::class, 'index'])->name('dashboard.produks.index');
@@ -78,12 +94,11 @@ Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/suppliers')->gr
     Route::delete('{supplier}', [SupplierController::class, 'destroy'])->name('dashboard.suppliers.destory');
 });
 
-
 //ROUTE PEMBELIAN
 Route::middleware(['auth', 'can:transaksi_admin'])->prefix('dashboard/pembelians')->group(function () {
     Route::get('index', [PembelianController::class, 'index'])->name('dashboard.pembelians.index');
-    Route::get('{pembelian}', [PembelianController::class, 'show'])->name('dashboard.pembelians.show');
     Route::get('create', [PembelianController::class, 'create'])->name('dashboard.pembelians.create');
+    Route::get('{pembelian}', [PembelianController::class, 'show'])->name('dashboard.pembelians.show');
     Route::post('store', [PembelianController::class, 'store'])->name('dashboard.pembelians.store');
     Route::get('{pembelian}/edit', [PembelianController::class, 'edit'])->name('dashboard.pembelians.edit');
     Route::put('/{pembelian}', [PembelianController::class, 'update'])->name('dashboard.pembelians.update');
@@ -91,8 +106,38 @@ Route::middleware(['auth', 'can:transaksi_admin'])->prefix('dashboard/pembelians
 });
 
 
+// PROFIL USER
+Route::get('/profil', [CustomerUser::class, 'profil'])->name('user.profil')->middleware('auth', 'can:crud_customer');
+Route::put('/profil/{user}', [CustomerUser::class, 'update'])->name('user.update')->middleware('auth', 'can:crud_customer');
+Route::get('/profil/alamat', [AlamatController::class, 'index'])->name('user.alamat');
+Route::get('/profil/alamat/create', [AlamatController::class, 'create'])->name('user.alamat.create');
+Route::post('/profil/alamat/store', [AlamatController::class, 'store'])->name('user.alamat.store');
+Route::put('/profil/alamat/{alamat}/aktif', [AlamatController::class, 'aktif'])->name('user.alamat.aktif');
+
+//ROUTE PRODUK
+Route::prefix('produk')->group(function () {
+    Route::get('/list', [ProdukUser::class, 'index'])->name('produk.list');
+    Route::get('/detailproduk/{produk}', [ProdukUser::class, 'show'])->name('produk.detail');
+});
 
 
+//ROUTE KERANJANG
+Route::middleware('auth', 'can:crud_customer')->prefix('keranjang')->group(function () {
+    Route::get('/listkeranjang', [KeranjangController::class, 'index'])->name('keranjang.listkeranjang');
+    Route::post('/tambahkeranjang', [KeranjangController::class, 'store'])->name('keranjang.tambah');
+    Route::put('/{keranjang}', [KeranjangController::class, 'update']);
+    Route::delete('/{keranjang}', [KeranjangController::class, 'destroy']);
+});
+Route::get('keranjang/jumlah', [KeranjangController::class, 'jumlah']);
+
+//ROUTE PENJUALAN
+Route::middleware('auth', 'can:crud_customer')->prefix('penjualan')->group(function () {
+    Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index');
+});
+
+
+
+Route::get('/ongkir/getongkir', [OngkirController::class, 'get_ongkir']);
 
 
 // Blank Page

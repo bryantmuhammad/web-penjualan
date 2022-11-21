@@ -85,7 +85,6 @@ class PembelianDataTable extends DataTable
             Column::make('tanggal_pembelian')->title('Tanggal Pembelian'),
             Column::make('total_pembelian')->title('Total Harga'),
             Column::make('detail_pembelian')->title('Detail Pembelian')->orderable(false)->searchable(false),
-
         ];
     }
 

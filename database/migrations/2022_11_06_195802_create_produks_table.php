@@ -17,10 +17,11 @@ return new class extends Migration
             $table->bigIncrements('id_produk');
             $table->foreignId('id_kategori')->references('id_kategori')->on('kategoris')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('nama_produk', 60);
-            $table->integer('stok')->nullable();
+            $table->integer('stok')->nullable()->default(0);
             $table->integer('berat')->nullable();
             $table->double('harga')->nullable();
             $table->string('gambar', 100);
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

@@ -36,7 +36,7 @@ class UserRequest extends FormRequest
             'name'      => ['required', 'string', 'min:2', 'max:255'],
             'email'     => ['required', 'string', 'email:dns', 'unique:users,email'],
             'password'  => ['required', 'confirmed', 'min:4'],
-            'role'      => ['required', 'exists:roles,name']
+            'role'      => ['nullable', 'exists:roles,name']
         ];
     }
 
@@ -46,7 +46,7 @@ class UserRequest extends FormRequest
             'name'      => ['required', 'string', 'min:2', 'max:255'],
             'email'     => ['required', 'string', 'email:dns', Rule::unique('users')->ignore($this->user->id)],
             'password'  => ['nullable', 'confirmed', 'min:4'],
-            'role'      => ['required', 'exists:roles,name']
+            'role'      => ['nullable', 'exists:roles,name']
         ];
     }
 }

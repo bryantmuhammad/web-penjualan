@@ -16,7 +16,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $user->assignRole(request()->role);
+        $user->assignRole(request()->role ?? 'customer');
     }
 
     /**

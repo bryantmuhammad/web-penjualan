@@ -20,11 +20,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         $faker  = Faker::create('id_ID');
-        $user = User::create([
+        $user   = User::create([
             'name'              => $faker->name(),
             'email'             => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password'          => Hash::make('password'),
+            'password'          => 'password',
             'remember_token'    => Str::random(10),
         ]);
         $user->assignRole('admin');
@@ -42,10 +42,20 @@ class UserSeeder extends Seeder
             'name'              => $faker->name(),
             'email'             => 'pemilik@gmail.com',
             'email_verified_at' => now(),
-            'password'          => Hash::make('password'),
+            'password'          => 'password',
             'remember_token'    => Str::random(10),
         ]);
 
         $user->assignRole('pemilik');
+
+        $user = User::create([
+            'name'              => $faker->name(),
+            'email'             => 'customer@gmail.com',
+            'email_verified_at' => now(),
+            'password'          => 'password',
+            'remember_token'    => Str::random(10),
+        ]);
+
+        $user->assignRole('customer');
     }
 }
