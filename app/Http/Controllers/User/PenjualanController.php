@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PenjualanRequest;
 use App\Models\Alamat;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use App\Models\Keranjang;
+use App\Service\PaymentService;
+use App\Service\PenjualanService;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class PenjualanController extends Controller
@@ -30,6 +34,15 @@ class PenjualanController extends Controller
         }
     }
 
+
+    public function checkout(PenjualanRequest $request)
+    {
+        $service    = new PaymentService();
+        $response   = $service->create_token($request);
+
+        return response()->json($response, $response->status_code);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,7 +61,16 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $penjualan_service  = new PenjualanService();
+        $response           = $penjualan_service->create($request);
+
+        if ($response->status_code == 200) {
+            Alert::success('Success', $response->message);
+        } else {
+            Alert::error('Gagal', $response->message);
+        }
+
+        return redirect()->to('/');
     }
 
     /**

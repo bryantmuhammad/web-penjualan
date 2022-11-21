@@ -35,7 +35,24 @@ const core = {
             }
         });
     },
-
+    showInfo: function (title) {
+        Swal.fire({
+            title: title,
+            icon: "info",
+            showConfirmButton: false,
+            timer: 900,
+        });
+    },
+    showLoading: function () {
+        Swal.fire({
+            title: "Tunggu Sebentar",
+            imageUrl: "essence/loading.gif",
+            imageWidth: 300,
+            imageHeight: 200,
+            imageAlt: "Custom image",
+            showConfirmButton: false,
+        });
+    },
     formatRupiah: function (money) {
         return new Intl.NumberFormat(
             "id-ID",

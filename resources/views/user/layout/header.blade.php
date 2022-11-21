@@ -53,14 +53,6 @@
                         <ul>
                             <li><a href="{{ route('produk.list') }}">Produk</a></li>
 
-
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="index.html"></a></li>
-
-                                </ul>
-                            </li>
-
                             @can('crud_customer')
                                 <li><a href="#">Hi, {{ auth()->user()->name }}</a>
                                     <ul class="dropdown">

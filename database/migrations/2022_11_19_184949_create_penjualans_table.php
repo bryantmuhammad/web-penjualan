@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('resi', 30);
             $table->double('ongkir');
             $table->double('total');
+            $table->string('pdf');
             $table->smallInteger('status');
             $table->timestamps();
         });

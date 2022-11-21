@@ -21,7 +21,8 @@ class OngkirService
                 ->first()->berat;
 
 
-            $eksepdisis     = ['jne', 'tiki', 'pos'];
+            // $eksepdisis     = ['jne', 'tiki', 'pos'];
+            $eksepdisis     = ['jne'];
 
             $daftarProvinsi = [];
             foreach ($eksepdisis as $eksepdisi) {
@@ -37,13 +38,10 @@ class OngkirService
             return $response;
         }
 
-
-
         $response->data         = $daftarProvinsi;
         $response->status_code  = 200;
         $response->status       = 'success';
         $response->message      = 'Ongkir Found';
-
 
         return $response;
     }

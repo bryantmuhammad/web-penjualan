@@ -20,7 +20,6 @@ use App\Http\Controllers\user\{
 
 use App\Http\Controllers\AuthController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -133,6 +132,8 @@ Route::get('keranjang/jumlah', [KeranjangController::class, 'jumlah']);
 //ROUTE PENJUALAN
 Route::middleware('auth', 'can:crud_customer')->prefix('penjualan')->group(function () {
     Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::post('/checkout', [PenjualanController::class, 'checkout'])->name('penjualan.checkout');
+    Route::post('/store', [PenjualanController::class, 'store'])->name('penjualan.store');
 });
 
 
