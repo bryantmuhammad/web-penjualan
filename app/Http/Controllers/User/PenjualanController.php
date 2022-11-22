@@ -80,6 +80,10 @@ class PenjualanController extends Controller
      */
     public function show(Penjualan $penjualan)
     {
+        return view('user.penjualan.detail', [
+            'title'     => 'Detail Pembelian',
+            'penjualan' => $penjualan->load('user', 'detail_penjualan.produk', 'alamat_pengiriman.kabupaten.provinsi')
+        ]);
         dd($penjualan);
     }
 
