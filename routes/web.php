@@ -6,7 +6,8 @@ use App\Http\Controllers\Admin\{
     KategoriController,
     ProdukController,
     SupplierController,
-    PembelianController
+    PembelianController,
+    PenjualanController as penjualanAdmin
 };
 
 use App\Http\Controllers\user\{
@@ -98,11 +99,25 @@ Route::middleware(['auth', 'can:transaksi_admin'])->prefix('dashboard/pembelians
     Route::get('index', [PembelianController::class, 'index'])->name('dashboard.pembelians.index');
     Route::get('create', [PembelianController::class, 'create'])->name('dashboard.pembelians.create');
     Route::get('{pembelian}', [PembelianController::class, 'show'])->name('dashboard.pembelians.show');
+    Route::get('{pembelian}/print-invoice', [PembelianController::class, 'print_invoice'])->name('dashboard.pembelians.print-invoice');
     Route::post('store', [PembelianController::class, 'store'])->name('dashboard.pembelians.store');
     Route::get('{pembelian}/edit', [PembelianController::class, 'edit'])->name('dashboard.pembelians.edit');
     Route::put('/{pembelian}', [PembelianController::class, 'update'])->name('dashboard.pembelians.update');
     Route::delete('{pembelian}', [PembelianController::class, 'destroy'])->name('dashboard.pembelians.destory');
 });
+
+
+//ROUTE PENJUALAN ADMIN
+Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/penjualans')->group(function () {
+    Route::get('belumbayar', [penjualanAdmin::class, 'belumbayar'])->name('dashboard.penjualans.belumbayar');
+    Route::get('sudahbayar', [penjualanAdmin::class, 'sudahbayar'])->name('dashboard.penjualans.sudahbayar');
+    Route::get('selesai', [penjualanAdmin::class, 'selesai'])->name('dashboard.penjualans.selesai');
+    Route::get('{penjualan}/print-invoice', [penjualanAdmin::class, 'print_invoice'])->name('dashboard.penjualans.print-invoice');
+    Route::put('/{penjualan}', [penjualanAdmin::class, 'update'])->name('dashborad.penjualans.update');
+    Route::get('{penjualan}', [penjualanAdmin::class, 'show'])->name('dashboard.penjualans.show');
+});
+
+
 
 
 // PROFIL USER
@@ -119,7 +134,6 @@ Route::prefix('produk')->group(function () {
     Route::get('/detailproduk/{produk}', [ProdukUser::class, 'show'])->name('produk.detail');
 });
 
-
 //ROUTE KERANJANG
 Route::middleware('auth', 'can:crud_customer')->prefix('keranjang')->group(function () {
     Route::get('/listkeranjang', [KeranjangController::class, 'index'])->name('keranjang.listkeranjang');
@@ -132,13 +146,41 @@ Route::get('keranjang/jumlah', [KeranjangController::class, 'jumlah']);
 //ROUTE PENJUALAN
 Route::middleware('auth', 'can:crud_customer')->prefix('penjualan')->group(function () {
     Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/listpenjualan', [PenjualanController::class, 'list_penjualan'])->name('penjualan.list');
     Route::post('/checkout', [PenjualanController::class, 'checkout'])->name('penjualan.checkout');
     Route::post('/store', [PenjualanController::class, 'store'])->name('penjualan.store');
+    Route::get('/{penjualan}', [PenjualanController::class, 'show'])->name('penjualan.show');
 });
 
-
-
 Route::get('/ongkir/getongkir', [OngkirController::class, 'get_ongkir']);
+
+//ROUTE LIST PENJUALAN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Blank Page

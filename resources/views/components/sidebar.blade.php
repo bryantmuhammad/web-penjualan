@@ -51,6 +51,27 @@
                 </li>
             @endcan
 
+
+
+            @can('crud_admin')
+                <li class="nav-item dropdown {{ in_array(request()->segment(2), ['penjualans']) ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                        <span>Penjualan</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Request::is('dashboard/penjualans/belumbayar') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('dashboard.penjualans.belumbayar') }}">Belum Membayar</a>
+                        </li>
+                        <li class="{{ Request::is('dashboard/penjualans/sudahbayar') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('dashboard.penjualans.sudahbayar') }}">Sudah Membayar</a>
+                        </li>
+                        <li class="{{ Request::is('dashboard/penjualans/selesai') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('dashboard.penjualans.selesai') }}">Selesai</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+
+
         </ul>
 
 

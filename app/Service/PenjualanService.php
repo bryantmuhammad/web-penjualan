@@ -12,15 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class PenjualanService
 {
-
-
-
     public function create($request)
     {
         $response = create_reponse();
         DB::beginTransaction();
         try {
+            // Decode data dari midtrans
             $payment    = json_decode($request->midtrans);
+            // Insert penjualan
             $penjualan  = Penjualan::create([
                 'id_penjualan'  => $payment->order_id,
                 'user_id'       => auth()->user()->id,
@@ -33,6 +32,7 @@ class PenjualanService
                 'pdf'           => $payment->pdf_url
             ]);
 
+            // Ambil data dari keranjang lalu maskan ke detail penjualan
             $keranjangs = Keranjang::where('user_id', auth()->user()->id)->with('produk')->get();
             foreach ($keranjangs as $keranjang) {
                 DetailPenjualan::create([
@@ -46,6 +46,7 @@ class PenjualanService
             }
 
 
+            //Insert alamat pengiriman
             $alamat     = Alamat::where('user_id', auth()->user()->id)->where('aktif', 1)->first();
             $alamat     = $alamat->getAttributes();
             $alamat['id_penjualan'] = $penjualan->id_penjualan;
@@ -53,6 +54,7 @@ class PenjualanService
             unset($alamat['updated_at']);
             AlamatPengiriman::create($alamat);
 
+            //Hapus data keranjang user
             Keranjang::where('user_id', auth()->user()->id)->delete();
 
             $response->data = $penjualan;

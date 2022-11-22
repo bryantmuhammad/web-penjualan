@@ -21,8 +21,7 @@ class OngkirService
                 ->first()->berat;
 
 
-            // $eksepdisis     = ['jne', 'tiki', 'pos'];
-            $eksepdisis     = ['jne'];
+            $eksepdisis     = ['jne', 'tiki', 'pos'];
 
             $daftarProvinsi = [];
             foreach ($eksepdisis as $eksepdisi) {

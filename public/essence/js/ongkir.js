@@ -74,7 +74,11 @@ buttonCheckout.addEventListener("click", async function (e) {
         core.showInfo("Pilih ongkir terlebih dahulu");
     }
 
-    core.showLoading();
+    $("#loadMe").modal({
+        backdrop: "static", //remove ability to close modal with click
+        keyboard: false, //remove option to close with keyboard
+        show: true, //Display loader!
+    });
 
     const request = new Request(`${core.baseUrl}/penjualan/checkout`, {
         method: "POST",
@@ -88,6 +92,7 @@ buttonCheckout.addEventListener("click", async function (e) {
     await fetch(request)
         .then((response) => response.json())
         .then((response) => {
+            $("#loadMe").modal("hide");
             if (response.status_code == 500) {
                 core.showInfo(response.message);
             }

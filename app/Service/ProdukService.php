@@ -10,7 +10,7 @@ class ProdukService
     {
         $validatedData              = $request->validated();
         $validatedData['gambar']    = $request->file('gambar')->store('foto_produk');
-        $produk = Produk::create($validatedData);
+        $produk                     = Produk::create($validatedData);
 
         return $produk;
     }

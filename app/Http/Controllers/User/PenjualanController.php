@@ -43,14 +43,13 @@ class PenjualanController extends Controller
         return response()->json($response, $response->status_code);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function list_penjualan()
     {
-        //
+
+        return view('user.penjualan.list-penjualan', [
+            'title'     => 'List Pemesanan',
+            'penjualans' => Penjualan::where('user_id', auth()->user()->id)->with('detail_penjualan.produk')->get()
+        ]);
     }
 
     /**
@@ -81,7 +80,7 @@ class PenjualanController extends Controller
      */
     public function show(Penjualan $penjualan)
     {
-        //
+        dd($penjualan);
     }
 
     /**

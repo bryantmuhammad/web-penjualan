@@ -19,12 +19,40 @@
     <link rel="stylesheet" href="{{ asset('essence/css/core-style.css') }}">
     <link rel="stylesheet" href="{{ asset('essence/style.css') }}">
 
-
-
     <style>
         .nice-select.open .list {
             max-height: 300px;
             overflow-y: scroll;
+        }
+
+
+        /** SPINNER CREATION **/
+
+        .loader {
+            position: relative;
+            text-align: center;
+            margin: 15px auto 35px auto;
+            z-index: 9999;
+            display: block;
+            width: 80px;
+            height: 80px;
+            border: 10px solid rgba(0, 0, 0, .3);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spin {
+            to {
+                -webkit-transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -52,7 +80,7 @@
                     <div class="classynav">
                         <ul>
                             <li><a href="{{ route('produk.list') }}">Produk</a></li>
-
+                            <li><a href="{{ route('penjualan.list') }}">Pesanan</a></li>
                             @can('crud_customer')
                                 <li><a href="#">Hi, {{ auth()->user()->name }}</a>
                                     <ul class="dropdown">
@@ -61,8 +89,6 @@
                                     </ul>
                                 </li>
                             @endcan
-
-
                         </ul>
                     </div>
                     <!-- Nav End -->

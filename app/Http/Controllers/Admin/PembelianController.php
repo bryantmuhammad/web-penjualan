@@ -83,6 +83,14 @@ class PembelianController extends Controller
         ]);
     }
 
+    public function print_invoice(Pembelian $pembelian)
+    {
+        return view('admin.pembelian.print-invoice', [
+            'title'         => 'Detail Pembelian',
+            'pembelian'     => $pembelian->load('supplier', 'detail_pembelian.produk'),
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

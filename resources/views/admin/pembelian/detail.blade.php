@@ -20,7 +20,7 @@
                             <div class="col-lg-12">
                                 <div class="invoice-title">
                                     <h2>Detail Pembelian</h2>
-                                    <div class="invoice-number">Order #12345</div>
+
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -85,7 +85,9 @@
                     <hr>
                     <div class="text-md-right">
 
-                        <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+                        <a class="btn btn-warning btn-icon icon-left"
+                            href="{{ route('dashboard.pembelians.print-invoice', $pembelian->id_pembelian) }}"
+                            target="_blank"><i class="fas fa-print"></i> Print</a>
                     </div>
                 </div>
             </div>
