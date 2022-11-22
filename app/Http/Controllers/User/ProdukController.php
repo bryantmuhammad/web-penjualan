@@ -7,6 +7,7 @@ use App\Models\Produk;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 
+
 class ProdukController extends Controller
 {
     /**
@@ -17,10 +18,44 @@ class ProdukController extends Controller
     public function index()
     {
         return view('user.produk.list-produk', [
-            'title' => 'List Produk',
-            'kategoris' => Kategori::all(),
-            'produks'   => Produk::paginate('5')
+            'title'         => 'List Produk',
+            'kategoris'     => Kategori::all(),
+            'produks'       => Produk::where('stok', '>', 0)->paginate('5'),
+            'id_kategori'   => 0,
+            'min_harga'     => Produk::select('harga')->orderBy('harga', 'asc')->first()->harga,
+            'max_harga'     => Produk::select('harga')->orderBy('harga', 'desc')->first()->harga
         ]);
+    }
+
+    public function filter_by_category(Kategori $kategori)
+    {
+        $produks = Produk::where('id_kategori', $kategori->id_kategori)->where('stok', '>', 0)->paginate('5');
+
+        return view('user.produk.list-produk', [
+            'title'         => 'List Produk',
+            'kategoris'     => Kategori::all(),
+            'produks'       => $produks,
+            'id_kategori'   => $kategori->id_kategori,
+            'min_harga'     => Produk::select('harga')->where('id_kategori', $kategori->id_kategori)->orderBy('harga', 'asc')->first()->harga,
+            'max_harga'     => Produk::select('harga')->where('id_kategori', $kategori->id_kategori)->orderBy('harga', 'desc')->first()->harga
+        ]);
+    }
+
+    public function filter_by_price(Request $request)
+    {
+        $response = create_reponse();
+        $produk = Produk::select('nama_produk', 'harga', 'id_produk', 'id_kategori', 'gambar')->with('kategori')->whereBetween('harga', [$request->min, $request->max])->where('stok', '>', 0);
+        if ($request->id_kategori) {
+            $produk->where('id_kategori', $request->id_kategori);
+        }
+
+        $produk = $produk->get();
+        $response->status = 'success';
+        $response->status_code = 200;
+        $response->message = 'Produk Found';
+        $response->data = $produk;
+
+        return response()->json($response, $response->status_code);
     }
 
     /**

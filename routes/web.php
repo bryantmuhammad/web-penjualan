@@ -131,6 +131,7 @@ Route::put('/profil/alamat/{alamat}/aktif', [AlamatController::class, 'aktif'])-
 //ROUTE PRODUK
 Route::prefix('produk')->group(function () {
     Route::get('/list', [ProdukUser::class, 'index'])->name('produk.list');
+    Route::get('/list/{kategori}', [ProdukUser::class, 'filter_by_category'])->name('produk.list.category');
     Route::get('/detailproduk/{produk}', [ProdukUser::class, 'show'])->name('produk.detail');
 });
 

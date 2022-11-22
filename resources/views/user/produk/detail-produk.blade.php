@@ -19,8 +19,8 @@
                 <h2>{{ $produk->nama_produk }}</h2>
             </a>
             <p class="product-price"> {{ rupiah($produk->harga) }}</p>
-            <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus
-                velit id urna vehicula, nec maximus est sollicitudin.</p>
+            <span>Stok : {{ $produk->stok }}</span>
+            <p class="product-desc">{{ $produk->keterangan }}</p>
 
             <!-- Form -->
             <form class="cart-form clearfix" action="{{ route('keranjang.tambah') }}" method="post">
@@ -44,10 +44,7 @@
                         </button>
                     @endauth
 
-                    <!-- Favourite -->
-                    <div class="product-favourite ml-4">
-                        <a href="#" class="favme fa fa-heart"></a>
-                    </div>
+
                 </div>
             </form>
         </div>

@@ -100,8 +100,8 @@
 <!-- Classy Nav js -->
 <script src="{{ asset('essence/js/classy-nav.min.js') }}"></script>
 <!-- Active js -->
-<script src="{{ asset('essence/js/active.js') }}"></script>
 <script src="{{ asset('essence/js/custom.js') }}"></script>
+<script src="{{ asset('essence/js/active.js') }}"></script>
 @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 @stack('scripts')
 </body>

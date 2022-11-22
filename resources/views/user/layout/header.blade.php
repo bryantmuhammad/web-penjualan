@@ -64,8 +64,9 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="/"><img src="{{ asset('essence/img/core-img/logo.png') }}"
-                        alt=""></a>
+                <a class="nav-brand" href="/">
+                    <h4>Essence</h4>
+                </a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>

@@ -112,13 +112,40 @@
                 var result =
                     label_result +
                     " " +
-                    unit +
-                    ui.values[0] +
+                    core.formatRupiah(ui.values[0]) +
+                    ",00" +
                     " - " +
-                    unit +
-                    ui.values[1];
-                console.log(t);
+                    core.formatRupiah(ui.values[1]) +
+                    ",00";
+
                 t.closest(".slider-range").find(".range-price").html(result);
+            },
+            change: function (event, ui) {
+                const idKategori = document.getElementById("id_kategori").value;
+                const [min, max] = ui.values;
+
+                const request = new Request(
+                    `${core.baseUrl}/api/produk/filterbyprice`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": core.crsfToken,
+                            Accept: "application/json",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            min,
+                            max,
+                            id_kategori: idKategori,
+                        }),
+                    }
+                );
+
+                fetch(request)
+                    .then((response) => response.json())
+                    .then((response) => {
+                        drawProduk(response.data);
+                    });
             },
         });
     });
@@ -158,3 +185,39 @@
         $.preventDefault();
     });
 })(jQuery);
+
+function drawProduk(produks) {
+    // console.log(produks);
+    const cardListProduk = document.getElementById("cardlistproduk");
+    cardListProduk.innerHTML = "";
+    produks.forEach((produk) => {
+        const { nama_produk, harga, id_produk, gambar } = produk;
+        const { nama_kategori } = produk.kategori;
+
+        const kartuProduk = `<div class="col-12 col-sm-6 col-lg-4">
+         <div class="single-product-wrapper">
+             <div class="product-img">
+                 <img src="/storage/${gambar}" alt="Gambar Produk"
+                     style="height:200px;">
+             </div>
+             <div class="product-description">
+                 <span>${nama_kategori}</span>
+                 <a href="single-product-details.html">
+                     <h6>${nama_produk}</h6>
+                 </a>
+                 <p class="product-price">${core.formatRupiah(harga)}</p>
+
+                 <div class="hover-content">
+                     <div class="add-to-cart-btn">
+                         <a href="${
+                             core.baseUrl
+                         }/produk/detailproduk/${id_produk}"
+                             class="btn essence-btn">Detail Produk</a>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>`;
+        cardListProduk.insertAdjacentHTML("beforeend", kartuProduk);
+    });
+}

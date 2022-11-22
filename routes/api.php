@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ProvinsiController;
 use App\Http\Controllers\User\OngkirController;
+use App\Http\Controllers\User\ProdukController;
 
 
 /*
@@ -24,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/provinsi/getkabupaten', [ProvinsiController::class, 'get_kabupaten']);
 Route::get('/ongkir/getongkir', [OngkirController::class, 'get_ongkir']);
+Route::post('/produk/filterbyprice', [ProdukController::class, 'filter_by_price']);

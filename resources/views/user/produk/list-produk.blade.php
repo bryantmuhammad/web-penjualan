@@ -30,37 +30,42 @@
                             <div class="catagories-menu">
                                 <ul id="menu-content2" class="menu-content collapse show">
                                     <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#accessories" class="collapsed">
-                                        <a href="#">Kategori</a>
-                                        <ul class="sub-menu collapse show" id="accessories">
-                                            <li><a href="#">Semua</a></li>
-                                            @foreach ($kategoris as $kategori)
-                                                <li><a href="#">{{ $kategori->nama_kategori }}</a></li>
-                                            @endforeach
 
-                                        </ul>
+                                    <li>
+                                        <a href="{{ route('produk.list') }}"
+                                            style="color:black;@if ($id_kategori == 0) text-decoration:underline; @endif">Semua</a>
                                     </li>
+                                    @foreach ($kategoris as $kategori)
+                                        <li>
+                                            <a href="{{ route('produk.list.category', $kategori->id_kategori) }}"
+                                                style="color:black;@if ($id_kategori == $kategori->id_kategori) text-decoration:underline; @endif">
+                                                {{ $kategori->nama_kategori }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
+                                <input type="hidden" name="id_kategori" value="{{ $id_kategori }}" id="id_kategori">
                             </div>
                         </div>
 
                         <!-- ##### Single Widget ##### -->
                         <div class="widget price mb-50">
                             <!-- Widget Title -->
-                            <h6 class="widget-title mb-30">Filter by</h6>
+                            <h6 class="widget-title mb-30">Filter</h6>
                             <!-- Widget Title 2 -->
-                            <p class="widget-title2 mb-30">Price</p>
-
+                            <p class="widget-title2 mb-30">Harga</p>
                             <div class="widget-desc">
                                 <div class="slider-range">
-                                    <div data-min="49" data-max="360" data-unit="$"
+                                    <div data-min="{{ $min_harga }}" data-max="{{ $max_harga }}" data-unit="Rp "
                                         class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-                                        data-value-min="49" data-value-max="360" data-label-result="Range:">
+                                        data-value-min="{{ $min_harga }}" data-value-max="{{ $max_harga }}"
+                                        data-label-result="Range:">
                                         <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
                                         <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                         <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     </div>
-                                    <div class="range-price">Range: $49.00 - $360.00</div>
+                                    <div class="range-price">Range: {{ rupiah($min_harga) }} - {{ rupiah($max_harga) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -76,14 +81,14 @@
                                 <div class="product-topbar d-flex align-items-center justify-content-between">
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span>186</span> products found</p>
+                                        <p><span>{{ $produks->count() }}</span> products found</p>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" id="cardlistproduk">
 
                             @foreach ($produks as $produk)
                                 <!-- Single Product -->
@@ -99,7 +104,7 @@
                                         <div class="product-description">
                                             <span>{{ $produk->kategori->nama_kategori }}</span>
                                             <a href="single-product-details.html">
-                                                <h6>{{ $produk->nama_produk }}</h6>
+                                                <h6>{{ pecah_nama($produk->nama_produk) }}</h6>
                                             </a>
                                             <p class="product-price">{{ rupiah($produk->harga) }}</p>
 
@@ -116,10 +121,6 @@
                                 </div>
                             @endforeach
 
-
-
-
-
                         </div>
                     </div>
                     <!-- Pagination -->
@@ -130,4 +131,8 @@
         </div>
     </section>
     <!-- ##### Shop Grid Area End ##### -->
+
+    @push('scripts')
+        <script src="{{ asset('essence/js/produk.js') }}"></script>
+    @endpush
 @endsection

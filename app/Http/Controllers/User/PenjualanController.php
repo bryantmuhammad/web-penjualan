@@ -11,6 +11,7 @@ use App\Models\Keranjang;
 use App\Service\PaymentService;
 use App\Service\PenjualanService;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Gate;
 
 
 class PenjualanController extends Controller
@@ -80,34 +81,12 @@ class PenjualanController extends Controller
      */
     public function show(Penjualan $penjualan)
     {
+        Gate::authorize('view', $penjualan);
+
         return view('user.penjualan.detail', [
             'title'     => 'Detail Pembelian',
             'penjualan' => $penjualan->load('user', 'detail_penjualan.produk', 'alamat_pengiriman.kabupaten.provinsi')
         ]);
-        dd($penjualan);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Penjualan $penjualan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Penjualan $penjualan)
-    {
-        //
     }
 
     /**
