@@ -22,4 +22,15 @@ class Pembelian extends Model
     {
         return $this->hasMany(DetailPembelian::class, 'id_pembelian');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Array $tanggal : [Tanggal_Mulai, Tanggal Selesai]
+     */
+
+    public function scopeSearchByDate($query, array $tanggal)
+    {
+        return $query->whereBetween('tanggal_pembelian', [$tanggal]);
+    }
 }

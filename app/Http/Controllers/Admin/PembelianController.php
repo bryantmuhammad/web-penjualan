@@ -104,20 +104,20 @@ class PembelianController extends Controller
 
     public function laporan_index()
     {
-        $penjualans = (new PembelianService)->laporan();
+        $pembelians = (new PembelianService)->laporan();
 
-        return view('admin.laporan.penjualan', [
-            'penjualans'    => $penjualans,
-            'title'         => 'Laporan Penjualan'
+        return view('admin.laporan.pembelian', [
+            'pembelians'    => $pembelians,
+            'title'         => 'Laporan Pembelian'
         ]);
     }
 
     public function laporan_print()
     {
-        $penjualans = (new PembelianService)->laporan();
-        return view('admin.laporan.penjualan-print', [
-            'penjualans'    => $penjualans,
-            'title'         => 'Laporan Penjualan'
+        $pembelians = (new PembelianService)->laporan();
+        return view('admin.laporan.pembelian-print', [
+            'pembelians'    => $pembelians,
+            'title'         => 'Laporan Pembelian'
         ]);
     }
 }

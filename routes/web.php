@@ -122,7 +122,7 @@ Route::middleware('auth', 'can:laporan_admin')->prefix('dashboard/laporan')->gro
     Route::get('/penjualan', [penjualanAdmin::class, 'laporan_index'])->name('laporan.penjualan');
     Route::get('/penjualan/print', [penjualanAdmin::class, 'laporan_print']);
     Route::get('/pembelian', [PembelianController::class, 'laporan_index'])->name('laporan.pembelian');
-    Route::get('/pembelian/print', [penjualanAdmin::class, 'laporan_print']);
+    Route::get('/pembelian/print', [PembelianController::class, 'laporan_print']);
 });
 
 

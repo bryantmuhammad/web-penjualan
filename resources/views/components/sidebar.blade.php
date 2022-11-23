@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <a href="index.html">Penjualan</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">St</a>
+            <a href="index.html">PJN</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -81,7 +81,9 @@
                         <li class="{{ Request::is('dashboard/laporan/penjualan') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('laporan.penjualan') }}">Laporan Penjualan</a>
                         </li>
-
+                        <li class="{{ Request::is('dashboard/laporan/pembelian') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('laporan.pembelian') }}">Laporan Pembelian</a>
+                        </li>
                     </ul>
                 </li>
             @endcan

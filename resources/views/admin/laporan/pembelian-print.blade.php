@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Print Laporan Penjualan</title>
+    <title>Print Laporan Pembelian</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('library/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -49,47 +49,36 @@
 
         <table class="table-md table table-bordered">
             <tbody>
-                @foreach ($penjualans as $penjualan)
+                @foreach ($pembelians as $pembelian)
                     <tr>
-                        <th>Id Penjualan</th>
-                        <th>Customer</th>
+                        <th>Id Pembelian</th>
+                        <th>Supplier</th>
                         <th>Tanggal</th>
                     </tr>
                     <tr>
-                        <td>{{ $penjualan->id_penjualan }}</td>
-                        <td>{{ $penjualan->user->name }}</td>
-                        <td>{{ $penjualan->created_at->isoFormat('D MMMM Y') }}</td>
+                        <td>{{ $pembelian->id_pembelian }}</td>
+                        <td>{{ $pembelian->supplier->nama_supplier }}</td>
+                        <td>{{ $pembelian->created_at->isoFormat('D MMMM Y') }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Produk</th>
                         <th scope="row" class="text-center">Jumlah</th>
                         <th scope="row" class="text-center">Harga</th>
                     </tr>
-                    @foreach ($penjualan->detail_penjualan as $detail_penjualan)
+                    @foreach ($pembelian->detail_pembelian as $detail_pembelian)
                         <tr>
-                            <td>{{ $detail_penjualan->produk->nama_produk }}
+                            <td>{{ $detail_pembelian->produk->nama_produk }}
                             </td>
-                            <td class="text-center">{{ $detail_penjualan->jumlah }}</td>
+                            <td class="text-center">{{ $detail_pembelian->jumlah }}</td>
                             <td class="text-center">
-                                {{ rupiah($detail_penjualan->produk->harga) }}</td>
+                                {{ rupiah($detail_pembelian->produk->harga) }}</td>
                         </tr>
                     @endforeach
-                    <tr>
-                        <td colspan="2" class="text-center"><b>SubTotal</b></td>
-                        <td class="text-center">
-                            <b>{{ rupiah($penjualan->total - $penjualan->ongkir) }}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="text-center"><b>Ongkir</b></td>
-                        <td class="text-center">
-                            <b>{{ rupiah($penjualan->ongkir) }}</b>
-                        </td>
-                    </tr>
+
                     <tr>
                         <td colspan="2" class="text-center"><b>Total</b></td>
                         <td class="text-center">
-                            <b>{{ rupiah($penjualan->total) }}</b>
+                            <b>{{ rupiah($pembelian->total_pembelian) }}</b>
                         </td>
                     </tr>
                     <tr class="table-dark">
