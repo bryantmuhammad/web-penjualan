@@ -17,10 +17,11 @@
             <div class="section-body">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('dashboard.kategoris.update', $kategori) }}" method="POST">
+                        <form action="{{ route('dashboard.produks.update', $produk) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            @include('admin.kategori.form')
+                            @include('admin.produk.form')
                         </form>
                     </div>
                 </div>

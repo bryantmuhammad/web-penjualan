@@ -35,10 +35,15 @@
         </x-forms.input-group>
     </div>
 
+    <div class="col-lg-12">
+        <x-forms.textarea id="keterangan" name="keterangan" required="required" placeholder="Masukan Keterangan Produk"
+            label="Keterangan" value="{{ old('keterangan', $produk->keterangan ?? '') }}"></x-forms.textarea>
+    </div>
+
     <div class="col-lg-6">
         <label for="gambar">Foto Produk</label>
         <input type="file" class="form-control @error('gambar') is-invalid @enderror" onchange="previewImage()"
-            name="gambar" id="gambar" required>
+            name="gambar" id="gambar">
         @error('gambar')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -46,10 +51,17 @@
         @enderror
     </div>
 
+
+
     <div class="col-lg-12 mt-3 mb-4">
         <label for="preview">Preview Foto Produk</label>
         <br>
-        <img src="" alt="Preview Image" class="img-preview img-fluid" style="width:150px;height:130px;">
+        @if (isset($produk))
+            <img src="{{ asset('storage/' . $produk->gambar) }}" alt="Preview Image" class="img-preview img-fluid"
+                style="width:150px;height:130px;">
+        @else
+            <img src="" alt="Preview Image" class="img-preview img-fluid" style="width:150px;height:130px;">
+        @endif
     </div>
 
     <div class="col-lg-4">

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('stok')->nullable()->default(0);
             $table->integer('berat')->nullable();
             $table->double('harga')->nullable();
-            $table->string('gambar', 100);
+            $table->string('gambar', 100)->nullable();
             $table->text('keterangan');
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Models\Produk;
+use Illuminate\Support\Facades\Storage;
 
 class ProdukService
 {
@@ -21,5 +22,24 @@ class ProdukService
             Produk::where('id_produk', $produk['id_produk'])
                 ->increment('stok', $produk['jumlah']);
         }
+    }
+
+    public function update($request, Produk $produk)
+    {
+        $validatedData       = $request->validated();
+        if ($request->file('gambar')) {
+            Storage::delete($produk->gambar);
+            $validatedData['gambar'] = $request->file('gambar')->store('foto_produk');
+        }
+
+        $produk->update($validatedData);
+
+        return $produk;
+    }
+
+    public function delete(Produk $produk)
+    {
+        Storage::delete($produk->gambar);
+        $produk->delete();
     }
 }

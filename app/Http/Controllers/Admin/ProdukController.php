@@ -44,24 +44,14 @@ class ProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProdukRequest $request, ProdukService $produkService)
+    public function store(ProdukRequest $request)
     {
-        $produkService->create($request);
+        $produk = (new ProdukService)->create($request);
         Alert::success('Success', 'Berhasil menambahkan produk');
 
         return redirect()->route('dashboard.produks.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Produk  $produk
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Produk $produk)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -71,7 +61,11 @@ class ProdukController extends Controller
      */
     public function edit(Produk $produk)
     {
-        //
+        return view('admin.produk.update', [
+            'produk'    => $produk,
+            'kategoris' => Kategori::all(),
+            'title'     => 'Edit Produk'
+        ]);
     }
 
     /**
@@ -81,9 +75,12 @@ class ProdukController extends Controller
      * @param  \App\Models\Produk  $produk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produk $produk)
+    public function update(ProdukRequest $request, Produk $produk)
     {
-        //
+        $response = (new ProdukService)->update($request, $produk);
+        Alert::success('Success', 'Berhasil merubah produk');
+
+        return redirect()->route('dashboard.produks.index');
     }
 
     /**
@@ -94,6 +91,9 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        //
+        (new ProdukService)->delete($produk);
+        Alert::success('Success', 'Berhasil merubah produk');
+
+        return redirect()->route('dashboard.produks.index');
     }
 }
