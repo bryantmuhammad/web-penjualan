@@ -23,10 +23,11 @@ class PenjualanDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $eloquentDataTable = new EloquentDataTable($query);
-        if (request()->segment(3) !== 'selesai') {
+        if (request()->segment(3) == 'selesai') {
             $eloquentDataTable->addColumn('detail', 'admin.penjualan.datatable-detail')
                 ->rawColumns(['detail']);
         } else {
+
             $eloquentDataTable->addColumn('action', 'admin.penjualan.datatable-action')
                 ->addColumn('detail', 'admin.penjualan.datatable-detail')
                 ->rawColumns(['action', 'detail']);
@@ -110,6 +111,7 @@ class PenjualanDataTable extends DataTable
                 ->printable(false)
                 ->width(200)->addClass('text-center');
         }
+
 
         return $column;
     }

@@ -29,4 +29,16 @@ class Penjualan extends Model
     {
         return $this->hasOne(AlamatPengiriman::class, 'id_penjualan');
     }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Array $tanggal : [Tanggal_Mulai, Tanggal Selesai]
+     */
+
+    public function scopeSearchByDate($query, array $tanggal)
+    {
+        return $query->whereBetween('created_at', [$tanggal]);
+    }
 }

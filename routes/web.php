@@ -115,9 +115,15 @@ Route::middleware(['auth', 'can:crud_admin'])->prefix('dashboard/penjualans')->g
     Route::get('{penjualan}/print-invoice', [penjualanAdmin::class, 'print_invoice'])->name('dashboard.penjualans.print-invoice');
     Route::put('/{penjualan}', [penjualanAdmin::class, 'update'])->name('dashborad.penjualans.update');
     Route::get('{penjualan}', [penjualanAdmin::class, 'show'])->name('dashboard.penjualans.show');
+    Route::delete('{penjualan}', [penjualanAdmin::class, 'destroy'])->name('dashboard.penjualans.destroy');
 });
 
-
+Route::middleware('auth', 'can:laporan_admin')->prefix('dashboard/laporan')->group(function () {
+    Route::get('/penjualan', [penjualanAdmin::class, 'laporan_index'])->name('laporan.penjualan');
+    Route::get('/penjualan/print', [penjualanAdmin::class, 'laporan_print']);
+    Route::get('/pembelian', [PembelianController::class, 'laporan_index'])->name('laporan.pembelian');
+    Route::get('/pembelian/print', [penjualanAdmin::class, 'laporan_print']);
+});
 
 
 // PROFIL USER
@@ -156,7 +162,6 @@ Route::middleware('auth', 'can:crud_customer')->prefix('penjualan')->group(funct
 Route::get('/ongkir/getongkir', [OngkirController::class, 'get_ongkir']);
 
 //ROUTE LIST PENJUALAN
-
 
 
 

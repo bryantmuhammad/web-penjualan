@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\DataTables\PenjualanDataTable;
 use App\Http\Requests\KirimResiRequest;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Service\PenjualanService;
 
 class PenjualanController extends Controller
 {
@@ -80,6 +81,32 @@ class PenjualanController extends Controller
      */
     public function destroy(Penjualan $penjualan)
     {
-        //
+        $response = (new PenjualanService)->delete($penjualan);
+        if ($response->status_code == 200) {
+            Alert::success('Success', $response->message);
+        } else {
+            Alert::error('Gagal', $response->message);
+        }
+
+        return redirect()->back();
+    }
+
+    public function laporan_index()
+    {
+        $penjualans = (new PenjualanService)->laporan();
+
+        return view('admin.laporan.penjualan', [
+            'penjualans'    => $penjualans,
+            'title'         => 'Laporan Penjualan'
+        ]);
+    }
+
+    public function laporan_print()
+    {
+        $penjualans = (new PenjualanService)->laporan();
+        return view('admin.laporan.penjualan-print', [
+            'penjualans'    => $penjualans,
+            'title'         => 'Laporan Penjualan'
+        ]);
     }
 }

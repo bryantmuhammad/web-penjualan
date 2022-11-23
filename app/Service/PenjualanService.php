@@ -71,4 +71,44 @@ class PenjualanService
 
         return $response;
     }
+
+    public function delete(Penjualan $penjualan)
+    {
+        $response = create_reponse();
+
+        DB::beginTransaction();
+        try {
+            $produks = DetailPenjualan::where('id_penjualan', $penjualan->id_penjualan)->get();
+            $produks->each(function ($produk) {
+                Produk::where('id_produk', $produk->id_produk)->increment('stok', $produk->jumlah);
+            });
+
+            $penjualan->delete();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $response;
+        }
+
+        DB::commit();
+        $response->status       = 'success';
+        $response->status_code  = 200;
+        $response->message      = 'Berhasil menghapus penjualan';
+
+        return $response;
+    }
+
+    public function laporan()
+    {
+        $start_date = request()->query('start_date', false);
+        $end_date   = request()->query('end_date', false);
+
+        if ($start_date && $end_date) {
+
+            $penjualans = Penjualan::with('detail_penjualan.produk', 'user')->SearchByDate([$start_date, $end_date])->where('status', '>', 2)->get();
+        } else {
+            $penjualans = Penjualan::with('detail_penjualan.produk', 'user')->where('status', '>', 2)->get();
+        }
+
+        return $penjualans;
+    }
 }

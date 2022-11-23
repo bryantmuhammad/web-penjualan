@@ -23,7 +23,6 @@ class PembelianController extends Controller
         $this->pembelian_service = $pembelianService;
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -92,29 +91,6 @@ class PembelianController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pembelian  $pembelian
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pembelian $pembelian)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pembelian  $pembelian
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pembelian $pembelian)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Pembelian  $pembelian
@@ -123,5 +99,25 @@ class PembelianController extends Controller
     public function destroy(Pembelian $pembelian)
     {
         //
+    }
+
+
+    public function laporan_index()
+    {
+        $penjualans = (new PembelianService)->laporan();
+
+        return view('admin.laporan.penjualan', [
+            'penjualans'    => $penjualans,
+            'title'         => 'Laporan Penjualan'
+        ]);
+    }
+
+    public function laporan_print()
+    {
+        $penjualans = (new PembelianService)->laporan();
+        return view('admin.laporan.penjualan-print', [
+            'penjualans'    => $penjualans,
+            'title'         => 'Laporan Penjualan'
+        ]);
     }
 }

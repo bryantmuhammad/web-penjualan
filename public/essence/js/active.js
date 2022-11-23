@@ -187,7 +187,6 @@
 })(jQuery);
 
 function drawProduk(produks) {
-    // console.log(produks);
     const cardListProduk = document.getElementById("cardlistproduk");
     cardListProduk.innerHTML = "";
     produks.forEach((produk) => {

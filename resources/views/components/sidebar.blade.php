@@ -72,6 +72,21 @@
             @endcan
 
 
+            <li class="menu-header">Laporan</li>
+            @can('laporan_admin')
+                <li class="nav-item dropdown {{ in_array(request()->segment(2), ['laporan']) ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                        <span>Laporan</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Request::is('dashboard/laporan/penjualan') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('laporan.penjualan') }}">Laporan Penjualan</a>
+                        </li>
+
+                    </ul>
+                </li>
+            @endcan
+
+
         </ul>
 
 

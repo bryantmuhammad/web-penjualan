@@ -83,4 +83,19 @@ class PembelianService
 
         return $response;
     }
+
+    public function laporan()
+    {
+        $start_date = request()->query('start_date', false);
+        $end_date   = request()->query('end_date', false);
+
+        if ($start_date && $end_date) {
+
+            $penjualans = Penjualan::with('detail_penjualan.produk', 'user')->SearchByDate([$start_date, $end_date])->where('status', '>', 2)->get();
+        } else {
+            $penjualans = Penjualan::with('detail_penjualan.produk', 'user')->where('status', '>', 2)->get();
+        }
+
+        return $penjualans;
+    }
 }

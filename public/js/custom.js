@@ -19,7 +19,7 @@ function deleteData(event) {
 function confirmDelete(callback) {
     swal.fire({
         icon: "warning",
-        text: "Yakin ingin menghapus data?",
+        title: "Yakin ingin menghapus data?",
         showConfirmButton: true,
         showCancelButton: true,
         confirmButtonText: "Ya, hapus",
