@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\User;
 
+
 class DashboardController extends Controller
 {
     public function index()
@@ -20,8 +21,6 @@ class DashboardController extends Controller
 
     public function index_admin()
     {
-
-
         return view('admin.index', [
             'title'     => 'Dashboard',
             'pending'   => Penjualan::where('status', 1)->count(),

@@ -159,6 +159,7 @@ Route::middleware('auth', 'can:crud_customer')->prefix('penjualan')->group(funct
 
 Route::get('/ongkir/getongkir', [OngkirController::class, 'get_ongkir']);
 
+
 //ROUTE LIST PENJUALAN
 
 
