@@ -20,6 +20,7 @@ use App\Http\Controllers\user\{
 };
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,14 +35,10 @@ use App\Http\Controllers\AuthController;
 
 
 // Dashboard
-Route::get('/', function () {
-    return view('user.index');
-});
+Route::get('/', [DashboardController::class, 'index']);
 
 
-Route::get('/dashboard/index', function () {
-    return view('pages.dashboard-general-dashboard');
-})->middleware('auth')->name('dashboard.index');
+Route::get('/dashboard/index', [DashboardController::class, 'index_admin'])->middleware('auth')->name('dashboard.index');
 
 
 //ROUTE LOGIN ADMIN
@@ -157,6 +154,7 @@ Route::middleware('auth', 'can:crud_customer')->prefix('penjualan')->group(funct
     Route::post('/checkout', [PenjualanController::class, 'checkout'])->name('penjualan.checkout');
     Route::post('/store', [PenjualanController::class, 'store'])->name('penjualan.store');
     Route::get('/{penjualan}', [PenjualanController::class, 'show'])->name('penjualan.show');
+    Route::put('/{penjualan}/diterima', [PenjualanController::class, 'barang_diteirma']);
 });
 
 Route::get('/ongkir/getongkir', [OngkirController::class, 'get_ongkir']);

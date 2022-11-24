@@ -6,7 +6,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        <h2>dresses</h2>
+                        <h2>Produk</h2>
                     </div>
                 </div>
             </div>

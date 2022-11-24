@@ -58,18 +58,21 @@
                                                     </button>
                                                 </td>
                                                 <td>
-                                                    <div class="row">
-                                                        <div class="col-lg-3">
-                                                            <img src="{{ asset('storage/' . $keranjang->produk->gambar) }}"
-                                                                alt="" style="height: 100px;width:120px;">
+                                                    <a href="{{ route('produk.detail', $keranjang->produk->id_produk) }}">
+                                                        <div class="row">
+
+                                                            <div class="col-lg-3">
+                                                                <img src="{{ asset('storage/' . $keranjang->produk->gambar) }}"
+                                                                    alt="" style="height: 100px;width:120px;">
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p style="font-weight: bold;color:black;">
+                                                                    {{ $keranjang->produk->nama_produk }}</p>
+                                                                <p style="margin-top:-20px;">
+                                                                    {{ $keranjang->produk->kategori->nama_kategori }}</p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-6">
-                                                            <p style="font-weight: bold;color:black;">
-                                                                {{ $keranjang->produk->nama_produk }}</p>
-                                                            <p style="margin-top:-20px;">
-                                                                {{ $keranjang->produk->kategori->nama_kategori }}</p>
-                                                        </div>
-                                                    </div>
+                                                    </a>
                                                 </td>
                                                 <td>{{ rupiah($keranjang->produk->harga) }}</td>
                                                 <td>

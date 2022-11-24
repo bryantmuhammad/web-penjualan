@@ -89,14 +89,11 @@ class PenjualanController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Penjualan $penjualan)
+    public function barang_diteirma(Penjualan $penjualan)
     {
-        //
+        $penjualan_service  = new PenjualanService();
+        $response           = $penjualan_service->barang_diterima($penjualan);
+
+        return response()->json($response, $response->status_code);
     }
 }

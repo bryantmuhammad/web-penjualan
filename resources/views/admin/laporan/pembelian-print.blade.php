@@ -28,12 +28,12 @@
             <div class="isi" style="position:relative;">
                 <p style="text-align:center">
                     <span style="font-family:Times New Roman,Times,serif">
-                        <font size="8">Nama Instansi</font>
+                        <font size="8">{{ remove_underscore(env('NAMA_INSTANSI')) }}</font>
                     </span>
                 </p>
                 <p style="text-align:center">
                     <span style="font-size:15px">
-                        Alamat Instansi
+                        {{ remove_underscore(env('ALAMAT_INSTANSI')) }}
                     </span>
                 </p>
             </div>

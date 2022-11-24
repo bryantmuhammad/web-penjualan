@@ -21,6 +21,13 @@
 
             <div class="row">
 
+                @if ($penjualan->status == 3)
+                    <div class="col-12 mb-4">
+                        <button class="btn essence-btn diterima" data-id="{{ $penjualan->id_penjualan }}">Produk Sudah
+                            Diterima</button>
+                    </div>
+                @endif
+
                 <div class="col-md-6 col-lg-6 col-sm-12 mb-4">
                     <div class="order-details-confirmation">
 
@@ -179,4 +186,46 @@
 
         </div>
     </div>
+    @push('scripts')
+        <script>
+            const buttonDiterima = document.querySelector('.diterima');
+            buttonDiterima.addEventListener('click', function(e) {
+
+                e.preventDefault();
+
+                Swal.fire({
+                    title: "Barang sudah diterima?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, sudah!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const idPenjualan = e.target.dataset.id;
+                        const request = new Request(`${core.baseUrl}/penjualan/${idPenjualan}/diterima`, {
+                            method: 'PUT',
+                            headers: {
+                                "X-CSRF-TOKEN": core.csrfToken,
+                                Accept: "application/json",
+                            },
+                        });
+
+                        fetch(request)
+                            .then(response => response.json())
+                            .then(response => {
+                                Swal.fire({
+                                    title: response.message,
+                                    icon: response.status,
+                                    showConfirmButton: false,
+                                    timer: 900,
+                                }).then(res => {
+                                    location.reload();
+                                });
+                            })
+                    }
+                });
+            })
+        </script>
+    @endpush
 @endsection

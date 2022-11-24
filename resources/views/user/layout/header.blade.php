@@ -10,7 +10,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Essence - {{ $title ?? '' }}</title>
+    <title>{{ remove_underscore(env('NAMA_INSTANSI')) }} - {{ $title ?? '' }}</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="{{ asset('essence/img/core-img/favicon.ico') }}">
@@ -65,7 +65,7 @@
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
                 <a class="nav-brand" href="/">
-                    <h4>Essence</h4>
+                    <h4>{{ remove_underscore(env('NAMA_INSTANSI')) }}</h4>
                 </a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">

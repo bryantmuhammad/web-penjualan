@@ -11,8 +11,11 @@ class KeranjangService
 {
     public function create($request)
     {
+        // dd($request);
         $response   = create_reponse();
         $stok       = Produk::select('stok')->where('id_produk', $request['id_produk'])->first()->stok;
+        $jumlah     = $request['jumlah'];
+
         if ($stok) {
             DB::beginTransaction();
             try {
@@ -22,9 +25,12 @@ class KeranjangService
                     ->first();
 
                 if ($keranjang) {
-                    $jumlahProdukKeranjang = $keranjang->jumlah + 1;
-                    if ($jumlahProdukKeranjang < $stok) {
-                        $keranjang->increment('jumlah', 1);
+                    $jumlahProdukKeranjang = $keranjang->jumlah + $jumlah;
+
+                    if ($jumlahProdukKeranjang >= $stok) {
+                        $keranjang->update(['jumlah' => $stok]);
+                    } else {
+                        $keranjang->increment('jumlah', $jumlah);
                     }
                 } else {
                     $keranjang = Keranjang::create([

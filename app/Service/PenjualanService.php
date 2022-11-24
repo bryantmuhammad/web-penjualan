@@ -97,6 +97,25 @@ class PenjualanService
         return $response;
     }
 
+    public function barang_diterima(Penjualan $penjualan)
+    {
+        $response = create_reponse();
+        DB::beginTransaction();
+        try {
+            $penjualan->update(['status' => 4]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $response;
+        }
+
+        DB::commit();
+        $response->status       = 'success';
+        $response->status_code  = 200;
+        $response->message      = 'Berhasil mengkonfirmasi penerimaan barang';
+
+        return $response;
+    }
+
     public function laporan()
     {
         $start_date = request()->query('start_date', false);
