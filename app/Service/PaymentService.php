@@ -34,9 +34,9 @@ class PaymentService
 
         foreach ($keranjangs as $keranjang) {
             if ($keranjang->jumlah > $keranjang->produk->stok) {
-                $response->status = 'error';
-                $response->status_code = 500;
-                $response->message = 'Stok barang habis';
+                $response->status       = 'error';
+                $response->status_code  = 500;
+                $response->message      = 'Stok barang habis';
                 return $response;
             }
 

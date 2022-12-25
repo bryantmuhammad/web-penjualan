@@ -49,7 +49,7 @@ class PenjualanController extends Controller
 
         return view('user.penjualan.list-penjualan', [
             'title'     => 'List Pemesanan',
-            'penjualans' => Penjualan::where('user_id', auth()->user()->id)->with('detail_penjualan.produk')->get()
+            'penjualans' => Penjualan::where('user_id', auth()->user()->id)->with('detail_penjualan.produk')->latest()->get()
         ]);
     }
 

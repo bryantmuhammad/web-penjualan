@@ -6,6 +6,7 @@ use App\Http\Controllers\User\ProvinsiController;
 use App\Http\Controllers\User\OngkirController;
 use App\Http\Controllers\User\ProdukController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Admin\PenjualanController;
 
 
 /*
@@ -28,3 +29,4 @@ Route::post('/provinsi/getkabupaten', [ProvinsiController::class, 'get_kabupaten
 Route::get('/ongkir/getongkir', [OngkirController::class, 'get_ongkir']);
 Route::post('/produk/filterbyprice', [ProdukController::class, 'filter_by_price']);
 Route::get('/chartpenjualan', [ReportController::class, 'chart_penjualan']);
+Route::post('/payment_handler', [PenjualanController::class, 'payment_handler']);

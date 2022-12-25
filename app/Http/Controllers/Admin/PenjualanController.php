@@ -9,6 +9,8 @@ use App\DataTables\PenjualanDataTable;
 use App\Http\Requests\KirimResiRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Service\PenjualanService;
+use Midtrans\Notification;
+use Midtrans\Config;
 
 class PenjualanController extends Controller
 {
@@ -108,5 +110,31 @@ class PenjualanController extends Controller
             'penjualans'    => $penjualans,
             'title'         => 'Laporan Penjualan'
         ]);
+    }
+
+    public function payment_handler(Request $request)
+    {
+
+        $response = create_reponse();
+        try {
+            Config::$serverKey  = env('MIDTRANS_SERVER_KEY');
+            $mid                = new Notification();
+
+            $status             = $mid->transaction_status;
+            $orderId            = $mid->order_id;
+
+            //Verif signature key
+            $penjualan = Penjualan::where('id_penjualan', $orderId)->update(['status' => 2]);
+
+            $response->status       = 'Success';
+            $response->status_code  = 200;
+            $response->message      = 'Penjualan berhasil dibayar';
+            $response->data         = $penjualan;
+            return response()->json($response, $response->status_code);
+        } catch (\Exception $e) {
+            $response->message      = 'Penjualan tidak ditemukan';
+            $response->status_code  = 404;
+            return response()->json($response, $response->status_code);
+        }
     }
 }
