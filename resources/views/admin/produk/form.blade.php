@@ -5,15 +5,15 @@
         <select name="id_kategori" id="id_kategori" class="form-control @error('id_kategori')is-invalid @enderror">
             <option value="">- Pilih Kategori -</option>
             @foreach ($kategoris as $kategori)
-                <option value="{{ $kategori->id_kategori }}"
-                    {{ old('id_kategori', $produk->id_kategori ?? '') == $kategori->id_kategori ? 'selected' : '' }}>
-                    {{ $kategori->nama_kategori }}</option>
+            <option value="{{ $kategori->id_kategori }}" {{ old('id_kategori', $produk->id_kategori ?? '') ==
+                $kategori->id_kategori ? 'selected' : '' }}>
+                {{ $kategori->nama_kategori }}</option>
             @endforeach
         </select>
         @error('id_kategori')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
         @enderror
     </div>
 
@@ -35,6 +35,13 @@
         </x-forms.input-group>
     </div>
 
+    <div class="col-lg-6">
+        <x-forms.input-group id="harga_beli" name="harga_beli" required="required" type="number"
+            placeholder="Masukan Harga Beli Produk" label="Harga Beli Produk"
+            value="{{ old('harga_beli', $produk->harga_beli ?? '') }}">
+        </x-forms.input-group>
+    </div>
+
     <div class="col-lg-12">
         <x-forms.textarea id="keterangan" name="keterangan" required="required" placeholder="Masukan Keterangan Produk"
             label="Keterangan" value="{{ old('keterangan', $produk->keterangan ?? '') }}"></x-forms.textarea>
@@ -45,9 +52,9 @@
         <input type="file" class="form-control @error('gambar') is-invalid @enderror" onchange="previewImage()"
             name="gambar" id="gambar">
         @error('gambar')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
         @enderror
     </div>
 
@@ -57,10 +64,10 @@
         <label for="preview">Preview Foto Produk</label>
         <br>
         @if (isset($produk))
-            <img src="{{ asset('storage/' . $produk->gambar) }}" alt="Preview Image" class="img-preview img-fluid"
-                style="width:150px;height:130px;">
+        <img src="{{ asset('storage/' . $produk->gambar) }}" alt="Preview Image" class="img-preview img-fluid"
+            style="width:150px;height:130px;">
         @else
-            <img src="" alt="Preview Image" class="img-preview img-fluid" style="width:150px;height:130px;">
+        <img src="" alt="Preview Image" class="img-preview img-fluid" style="width:150px;height:130px;">
         @endif
     </div>
 
@@ -70,8 +77,8 @@
 </div>
 
 @push('scripts')
-    <script>
-        function previewImage() {
+<script>
+    function previewImage() {
             const image = document.getElementById("gambar");
             const imgPreview = document.querySelector(".img-preview");
 
@@ -83,5 +90,5 @@
                 imgPreview.src = oFREvent.target.result;
             };
         }
-    </script>
+</script>
 @endpush

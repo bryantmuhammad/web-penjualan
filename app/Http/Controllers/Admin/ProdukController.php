@@ -96,4 +96,25 @@ class ProdukController extends Controller
 
         return redirect()->route('dashboard.produks.index');
     }
+
+    public function laporan()
+    {
+        $produk = Produk::with('kategori')->get();
+
+        return view('admin.laporan.produk', [
+            'produks' => $produk,
+            'title'  => 'Laporan Produk'
+        ]);
+    }
+
+    public function laporan_print()
+    {
+
+        $produk = Produk::with('kategori')->get();
+
+        return view('admin.laporan.produk-print', [
+            'produks' => $produk,
+            'title'  => 'Laporan Produk'
+        ]);
+    }
 }

@@ -49,8 +49,8 @@
                                 class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i
                                 class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i
-                                class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"
+                                aria-hidden="true"></i></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i
                                 class="fa fa-pinterest" aria-hidden="true"></i></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Youtube"><i
@@ -67,8 +67,8 @@
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> All rights reserved | Made with <i class="fa fa-heart-o"
-                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>,
+                    </script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+                        href="https://colorlib.com" target="_blank">Colorlib</a>,
                     distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
@@ -93,6 +93,10 @@
 <!-- Active js -->
 <script src="{{ asset('essence/js/custom.js') }}"></script>
 <script src="{{ asset('essence/js/active.js') }}"></script>
+<script type="text/javascript">
+    window.$crisp=[];window.CRISP_WEBSITE_ID="87fae599-21c6-499e-ba34-38b58237de65";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+</script>
+
 @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 @stack('scripts')
 </body>

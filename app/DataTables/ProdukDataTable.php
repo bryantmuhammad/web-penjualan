@@ -28,6 +28,9 @@ class ProdukDataTable extends DataTable
             ->addColumn('harga', function ($produk) {
                 return rupiah($produk->harga);
             })
+            ->addColumn('harga_beli', function ($produk) {
+                return rupiah($produk->harga_beli);
+            })
             ->addColumn('nama_kategori', function ($produk) {
                 return $produk->kategori->nama_kategori;
             })
@@ -83,6 +86,7 @@ class ProdukDataTable extends DataTable
             Column::make('stok')->title('Stok'),
             Column::make('berat')->title('Berat (gram)'),
             Column::make('harga')->title('Harga'),
+            Column::make('harga_beli')->title('Harga Beli'),
             Column::make('gambar')->title('Foto Produk'),
             Column::make('action')->title('Aksi')->orderable(false)->searchable(false),
         ];

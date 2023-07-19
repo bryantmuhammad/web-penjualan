@@ -85,12 +85,12 @@
                             <li><a href="{{ route('produk.list') }}">Produk</a></li>
                             <li><a href="{{ route('penjualan.list') }}">Pesanan</a></li>
                             @can('crud_customer')
-                                <li><a href="#">Hi, {{ auth()->user()->name }}</a>
-                                    <ul class="dropdown">
-                                        <li><a href="{{ route('user.profil') }}">Profil</a></li>
-                                        <li><a href="{{ route('user.alamat') }}">Alamat</a></li>
-                                    </ul>
-                                </li>
+                            <li><a href="#">Hi, {{ auth()->user()->name }}</a>
+                                <ul class="dropdown">
+                                    <li><a href="{{ route('user.profil') }}">Profil</a></li>
+                                    <li><a href="{{ route('user.alamat') }}">Alamat</a></li>
+                                </ul>
+                            </li>
                             @endcan
                         </ul>
                     </div>
@@ -104,17 +104,17 @@
                 <!-- User Login Info -->
                 @auth
 
-                    <div class="user-login-info">
-                        <form method="post" action="{{ route('logout') }}" id="formLogout">
-                            @csrf
-                            <a href="javascript:void(0)" onclick="document.getElementById('formLogout').submit()">LOGOUT</a>
-                        </form>
-                        {{-- <a href="{{ route('user.login') }}">LOGIN</a> --}}
-                    </div>
+                <div class="user-login-info">
+                    <form method="post" action="{{ route('logout') }}" id="formLogout">
+                        @csrf
+                        <a href="javascript:void(0)" onclick="document.getElementById('formLogout').submit()">LOGOUT</a>
+                    </form>
+                    {{-- <a href="{{ route('user.login') }}">LOGIN</a> --}}
+                </div>
                 @else
-                    <div class="user-login-info">
-                        <a href="{{ route('user.login') }}">LOGIN</a>
-                    </div>
+                <div class="user-login-info">
+                    <a href="{{ route('user.login') }}">LOGIN</a>
+                </div>
                 @endauth
 
                 <!-- Cart Area -->

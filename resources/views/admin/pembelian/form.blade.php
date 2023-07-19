@@ -4,9 +4,9 @@
         <select name="id_supplier" id="id_supplier" class="form-control">
             <option value="">- Pilih Supplier -</option>
             @foreach ($suppliers as $supplier)
-                <option value="{{ $supplier->id_supplier }}"
-                    {{ old('id_supplier') == $supplier->id_supplier ? 'selected' : '' }}>{{ $supplier->nama_supplier }}
-                </option>
+            <option value="{{ $supplier->id_supplier }}" {{ old('id_supplier')==$supplier->id_supplier ? 'selected' : ''
+                }}>{{ $supplier->nama_supplier }}
+            </option>
             @endforeach
         </select>
     </div>
@@ -22,10 +22,10 @@
         <select name="id_produk" id="id_produk" class="form-control">
             <option value="">- Pilih Produk -</option>
             @foreach ($produks as $produk)
-                <option data-harga="{{ $produk->harga }}" data-nama="{{ $produk->nama_produk }}"
-                    value="{{ $produk->id_produk }}" {{ old('id_produk') == $produk->id_produk ? 'selected' : '' }}>
-                    {{ $produk->nama_produk }}
-                </option>
+            <option data-harga="{{ $produk->harga_beli }}" data-nama="{{ $produk->nama_produk }}"
+                value="{{ $produk->id_produk }}" {{ old('id_produk')==$produk->id_produk ? 'selected' : '' }}>
+                {{ $produk->nama_produk }}
+            </option>
             @endforeach
         </select>
     </div>

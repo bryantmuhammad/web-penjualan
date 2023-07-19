@@ -40,62 +40,55 @@
         </div>
         <hr>
         @if (request()->query('start_date') && request()->query('end_date'))
-            <p class="text-center">
-                <b>Tanggal
-                    {{ date('j F Y', strtotime(request()->query('start_date'))) . ' SD ' . date('j F Y', strtotime(request()->query('end_date'))) }}</b>
-            </p>
+        <p class="text-center">
+            <b>Tanggal
+                {{ date('j F Y', strtotime(request()->query('start_date'))) . ' SD ' . date('j F Y',
+                strtotime(request()->query('end_date'))) }}</b>
+        </p>
         @endif
 
 
         <table class="table-md table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id Penjualan</th>
+                    <th>Customer</th>
+                    <th>Resi</th>
+                    <th>Pengiriman</th>
+                    <th>Total</th>
+                    <th>Harga Beli</th>
+                    <th>Keuntungan</th>
+                </tr>
+            </thead>
             <tbody>
+                @php
+                $total = 0;
+                @endphp
                 @foreach ($penjualans as $penjualan)
-                    <tr>
-                        <th>Id Penjualan</th>
-                        <th>Customer</th>
-                        <th>Tanggal</th>
-                    </tr>
-                    <tr>
-                        <td>{{ $penjualan->id_penjualan }}</td>
-                        <td>{{ $penjualan->user->name }}</td>
-                        <td>{{ $penjualan->created_at->isoFormat('D MMMM Y') }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Produk</th>
-                        <th scope="row" class="text-center">Jumlah</th>
-                        <th scope="row" class="text-center">Harga</th>
-                    </tr>
-                    @foreach ($penjualan->detail_penjualan as $detail_penjualan)
-                        <tr>
-                            <td>{{ $detail_penjualan->produk->nama_produk }}
-                            </td>
-                            <td class="text-center">{{ $detail_penjualan->jumlah }}</td>
-                            <td class="text-center">
-                                {{ rupiah($detail_penjualan->produk->harga) }}</td>
-                        </tr>
-                    @endforeach
-                    <tr>
-                        <td colspan="2" class="text-center"><b>SubTotal</b></td>
-                        <td class="text-center">
-                            <b>{{ rupiah($penjualan->total - $penjualan->ongkir) }}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="text-center"><b>Ongkir</b></td>
-                        <td class="text-center">
-                            <b>{{ rupiah($penjualan->ongkir) }}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="text-center"><b>Total</b></td>
-                        <td class="text-center">
-                            <b>{{ rupiah($penjualan->total) }}</b>
-                        </td>
-                    </tr>
-                    <tr class="table-dark">
-                        <td colspan="3"></td>
-                    </tr>
+                <tr>
+                    <td>{{ $penjualan->id_penjualan }}</td>
+                    <td>{{ $penjualan->user->name }}</td>
+                    <td>{{ $penjualan->resi }}</td>
+                    <td>{{ $penjualan->pengiriman }}</td>
+                    <td>{{ rupiah($penjualan->total) }}</td>
+                    @php
+                    $total += $penjualan->total;
+                    $totalHargaBeli = 0;
+                    foreach($penjualan->detail_penjualan as $detail_penjualan):
+                    $jumlah = $detail_penjualan->jumlah;
+                    $hargaBeli = $detail_penjualan->produk->harga_beli;
+                    $totalHargaBeli += $jumlah * $hargaBeli;
+                    endforeach;
+                    @endphp
+                    <td>{{ rupiah($totalHargaBeli) }}</td>
+                    <td>{{ rupiah($penjualan->total - $totalHargaBeli) }}</td>
+
+                </tr>
                 @endforeach
+                <tr>
+                    <td colspan="5" class="text-center"><b>Total</b></td>
+                    <td colspan="2" class="text-center"><b>{{ rupiah($total) }}</b></td>
+                </tr>
             </tbody>
         </table>
     </div>
